@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<script>
+     function init(){
+        layout=[[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]]];
+        divIDs=[document.getElementById("0"),document.getElementById("1"),document.getElementById("2"),
+             document.getElementById("3"),document.getElementById("4"),document.getElementById("5"),
+             document.getElementById("6"),document.getElementById("7"),document.getElementById("8")];
+        shownIDs=[document.getElementById("c0"),document.getElementById("c1"),document.getElementById("c2"),
+                  document.getElementById("c3"),document.getElementById("c4"),document.getElementById("c5"),
+                  document.getElementById("c6"),document.getElementById("c7"),document.getElementById("c8")];
+        turn=0;
+     }
+     function clicked(num){
+        letter="O";
+        if(turn%2!=0){
+            letter="X";
+            if(layout[num][1].length<=1 && layout[num][2]!=letter){
+                layout[num][1].push(letter);
+                document.getElementById(num.toString()+"x").innerHTML=layout[num][1];
+                layout[num][2]=letter;
+                shownIDs[num].innerHTML=letter;
+                turn++;
+            }
+        }
+        else{
+            if(layout[num][0].length<=1 && layout[num][2]!=letter){
+                layout[num][0].push(letter);
+                document.getElementById(num.toString()+"o").innerHTML=layout[num][0];
+                layout[num][2]=letter;
+                shownIDs[num].innerHTML=letter;
+                turn++;
+            }
+        }    
+        checkWinOutput=checkWin();
+        if(checkWinOutput[0]){
+            document.body.style.backgroundColor="green";
+            console.log("Assigning letter: " + checkWinOutput[1]);
+            document.getElementById("winnerText").innerHTML="Winner: " +  checkWin()[1];
+        }
+        else{
+            document.body.style.backgroundColor="white";
+        }
+     }
+     function checkWin(){
+        win=false;
+        letter="z";
+        console.log(layout[0][2])
+        coords=[];
+        //horizontal wins
+        if(layout[0][2].length>0 && layout[0][2]==layout[1][2] && layout[1][2]==layout[2][2]){
+            win=true;
+            letter=[layout[0][2]];
+            coords=[0,2]
+        }
+        if(layout[3][2].length>0 && layout[3][2]==layout[4][2] && layout[4][2]==layout[5][2]){
+            win=true;
+            letter=[layout[3][2]];
+            coords=[3,2]
+        }
+        if(layout[6][2].length>0 && layout[6][2]==layout[7][2] && layout[7][2]==layout[8][2]){
+            win=true;
+            letter=[layout[6][2]];
+            coords=[6,2]
+        }
+        //vertical wins
+        if(layout[0][2].length>0 && layout[0][2]==layout[3][2] && layout[3][2]==layout[6][2]){
+            win=true;
+            letter=[layout[0][2]];
+            coords=[0,2]
+        }
+        if(layout[1][2].length>0 && layout[1][2]==layout[4][2] && layout[4][2]==layout[7][2]){
+            win=true;
+            letter=[layout[1][2]];
+            coords=[1,2]
+        }
+        if(layout[2][2].length>0 && layout[2][2]==layout[5][2] && layout[5][2]==layout[8][2]){
+            win=true;
+            letter=[layout[2][2]];
+            coords=[2,2]
+        }
+        //daigonal wins
+        if(layout[0][2].length>0 && layout[0][2]==layout[4][2] && layout[4][2]==layout[8][2]){
+            win=true;
+            letter=[layout[0][2]];
+            coords=[0,2]
+        }
+        if(layout[2][2].length>0 && layout[2][2]==layout[4][2] && layout[4][2]==layout[6][2]){
+            win=true;
+            letter=[layout[2][2]];
+            coords=[2,2]
+        }
+        console.log("Checkwin letter: " + letter);
+        return [win,letter,coords];
+     }
+     function resetBoard(){
+        for (let i = 0; i < 9; i++) {
+            document.getElementById(i.toString()+"x").innerHTML="";
+            document.getElementById(i.toString()+"o").innerHTML="";
+            document.getElementById("c"+i.toString()).innerHTML="";
+        }
+        init();
+        document.body.style.backgroundColor="white";
+        document.getElementById("winnerText").innerHTML="";
+     }
+</script>
+<body onload="init();">
+    <div class="board">
+        <div id="0" onclick="clicked(0);">
+            <p class="x" id="0x"></p>
+            <p class="current" id="c0"></p>
+            <p class="o" id="0o"></p>
+        </div>
+        <div id="1" onclick="clicked(1);">
+            <p class="x" id="1x"></p>
+            <p class="current" id="c1"></p>
+            <p class="o" id="1o"></p>
+        </div>
+        <div id="2" onclick="clicked(2);">
+            <p class="x" id="2x"></p>
+            <p class="current" id="c2"></p>
+            <p class="o" id="2o"></p>
+        </div>
+        <div id="3" onclick="clicked(3);">
+            <p class="x" id="3x"></p>
+            <p class="current" id="c3"></p>
+            <p class="o" id="3o"></p>
+        </div>
+        <div id="4" onclick="clicked(4);">
+            <p class="x" id="4x"></p>
+            <p class="current" id="c4"></p>
+            <p class="o" id="4o"></p>
+        </div>
+        <div id="5" onclick="clicked(5);">
+            <p class="x" id="5x"></p>
+            <p class="current" id="c5"></p>
+            <p class="o" id="5o"></p>
+        </div>
+        <div id="6" onclick="clicked(6);">
+            <p class="x" id="6x"></p>
+            <p class="current" id="c6"></p>
+            <p class="o" id="6o"></p>
+        </div>
+        <div id="7" onclick="clicked(7);">
+            <p class="x" id="7x"></p>
+            <p class="current" id="c7"></p>
+            <p class="o" id="7o"></p>
+        </div>
+        <div id="8" onclick="clicked(8);">
+            <p class="x" id="8x"></p>
+            <p class="current" id="c8"></p>
+            <p class="o" id="8o"></p>
+        </div>
+    </div>
+    <div style="text-align: center;">
+        <span id="winnerText"></span>
+        <button onclick="resetBoard();" id="resetButton">Reset Board</button>
+    </div>
+    <p>ⓒJonah Reisner</p>
+    
+</body>

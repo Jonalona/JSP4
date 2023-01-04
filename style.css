@@ -1,0 +1,47 @@
+div.board{
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: repeat(3,1fr);
+  display: grid;
+}
+div.board div{
+  display: grid;
+  background-color: beige;
+  font-size: 25px;
+  grid-template-columns: repeat(4,1fr);
+  grid-template-rows: repeat(3,1fr);
+  border-style: groove;
+  padding-left: 22.5%;
+
+}
+div.board div:hover{
+  background-color: aqua;
+}
+div.board .x{
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 2;
+
+}
+div.board .o{
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 3;
+  grid-column-end: 4;
+}
+
+div.board .current{
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  font-size: 35px;
+}
+#resetButton{
+  font-size: 30px;
+}
+#winnerText{
+  font-size: 90px;
+  color: beige;
+  text-align: center;
+}
